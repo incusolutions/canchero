@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>BASKETBALL</title>
+  <meta name="description" content="Realtimebasketball" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/viewplanilla.css" type="text/css" />
+ 
+</head>
+<body style="background: #2b2f35;">
+ 
+ <div class="container-fluid">
+    <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1">Realball system</span>
+      <span class="navbar-brand mb-0 h3">Tiburones club</span>
+    </nav>
+
+    <div class="row">
+      
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+       
+              
+          <div class="equipo1 row">
+            
+              <div class="tituloe col-sm-12 col-md-10 col-lg-10">
+                <span> dadadadEquipo1</span>
+              </div>
+
+              <div class="tituloe col-sm-12 col-md-2 col-lg-2">
+                <div class='puntoseq1' id="puntostotales"><span>0</span></div>
+              </div>
+    
+          </div>
+        
+       
+          <div class="tablaeq1 row">
+            <table class="table table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Foto</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">TIPO</th>
+                      <th scope="col">PUNTOS</th>
+                      <th scope="col">+</th>
+                    </tr>
+                  </thead>
+                  <tbody id="equipo1">
+                   
+                    
+                  </tbody>
+                </table>
+          </div>
+
+
+      </div>
+      
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        
+          <div class="equipo2 row">
+            
+              <div class="tituloe col-sm-12 col-md-10 col-lg-10">
+                <span>Equipo2</span>
+              </div>
+
+              <div class="tituloe col-sm-12 col-md-2 col-lg-2">
+                <div class='puntoseq2' id="puntostotales2"><span>0</span></div>
+              </div>
+
+          </div>
+
+          <div class="tablaeq1 row">
+              <table class="table table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Foto</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">TIPO</th>
+                        <th scope="col">PUNTOS</th>
+                        <th scope="col">+</th>
+                      </tr>
+                    </thead>
+                    <tbody id="equipo2">
+                     
+
+
+                      
+                    </tbody>
+                  </table>
+          </div>
+
+
+      </div>
+
+    </div>
+
+
+ </div>
+
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/jsrender.js"></script>
+<script src="js/jquery.observable.js"></script>
+<script src="js/jquery.views.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+ <script id="tablajugadores" type="text/x-jsrender">
+                  <tr>
+                      <th scope="row"><span data-link="{:numero}"><span></th>
+                      <td><a href=""><img data-link="src{:fotourl}" class="img-responsive img-circle"></a> </td>
+                      <td><span data-link="{:nombre}"></span></td>
+                      <td>
+                         <div class="btn-group m-b">
+                            <button type="button" class="btn btn-sm white cestas" data-num="1" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">1</button>
+                            <button type="button" class="btn btn-sm white cestas" data-num="2" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">2</button>
+                            <button type="button" class="btn btn-sm white cestas" data-num="3" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">3</button>
+                          </div>
+                      </td>
+                      <td style="text-align: center;color: #eaff54;font-size: 24px;">
+                        <span id="puntosreales" data-puntosequipo="{{:equipo}}" data-numero="{{:numero}}{{:equipo}}" data-puntosteam="equipo1">0</span>
+                       </td>
+                       <td> <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">MAS</a></td>
+                    </tr>
+
+                
+                    <div class="collapse" id="collapseExample" style="width: 100%;">
+                      <div class="card ">
+                        <div class="card-body">
+                              <div class="row">
+                                
+                                <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                  <h4>#</h4>
+                                  <span style="font-size: 90px;color: #000;" data-link="{:numero}"></span>
+                                </div>
+
+                                 <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                   <h4>Faltas</h4>
+
+                                   <div style="width: 100%;font-size: 90px;color: #000;"><span>0</span></div>
+                                 
+                                   <div style="width: 100%;">
+                                     <button type="button" class="btn btn-primary btn-sm btn-block ">Agregar</button>
+                                     <button type="button" class="btn btn-primary btn-sm btn-block" >Quitar</button>
+                                   </div>
+                                </div>
+
+                                 <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                    <h4>Asis</h4>
+                                    <div style="width: 100%;font-size: 90px;color: #000;">
+                                       <span data-link="{{:estadisticas.asistencias}}" data-idasis="asist{{:numero}}{{:equipo}}"></span>
+                                    </div>
+                                   
+                                     <div style="width: 100%;">
+                                       <button type="button" class="btn btn-primary btn-sm btn-block asistbt" data-id="mas" data-idas="asist{{:numero}}{{:equipo}}">Agregar</button>
+                                       <button type="button" class="btn btn-primary btn-sm btn-block asistbt" data-id="menos" data-idas="asist{{:numero}}{{:equipo}}">Quitar</button>
+                                     </div>
+                                </div>
+
+                                 <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                   <h4>Bloqueos</h4>
+                                   <div style="width: 100%;font-size: 90px;color: #000;">
+                                     <span data-link="{{:estadisticas.bloqueos}}" data-idbloque="bloqueos{{:numero}}{{:equipo}}" ></span>
+                                    </div>
+                                 
+                                   <div style="width: 100%;">
+                                     <button type="button" class="btn btn-primary btn-sm btn-block bloqueosbt" data-id="mas" data-idb="bloqueos{{:numero}}{{:equipo}}">Agregar</button>
+                                     <button type="button" class="btn btn-primary btn-sm btn-block bloqueosbt" data-id="menos" data-idb="bloqueos{{:numero}}{{:equipo}}">Quitar</button>
+                                   </div>
+                                </div>
+
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+ </script>
+
+
+<script id="tablajugadores2" type="text/x-jsrender">
+                  <tr>
+                      <th scope="row"><span data-link="{:numero}"><span></th>
+                      <td><a href=""><img data-link="src{:fotourl}" class="img-responsive img-circle"></a> </td>
+                      <td><span data-link="{:nombre}"></span></td>
+                      <td>
+                         <div class="btn-group m-b">
+                            <button type="button" class="btn btn-sm white cestas" data-num="1" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">1</button>
+                            <button type="button" class="btn btn-sm white cestas" data-num="2" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">2</button>
+                            <button type="button" class="btn btn-sm white cestas" data-num="3" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">3</button>
+                          </div>
+                      </td>
+                      <td style="text-align: center;color: #eaff54;font-size: 24px;">
+                        <span id="puntosreales" data-puntosequipo="{{:equipo}}" data-numero="{{:numero}}{{:equipo}}" data-puntosteam="equipo2">0</span>
+                       </td>
+                       <td> <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">MAS</a></td>
+                    </tr>
+
+                
+                    <div class="collapse" id="collapseExample" style="width: 100%;">
+                      <div class="card ">
+                        <div class="card-body">
+                              <div class="row">
+                                
+                                <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                  <h4>#</h4>
+                                  <span style="font-size: 90px;color: #000;" data-link="{:numero}"></span>
+                                </div>
+
+                                 <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                   <h4>Faltas</h4>
+
+                                   <div style="width: 100%;font-size: 90px;color: #000;"><span>0</span></div>
+                                 
+                                   <div style="width: 100%;">
+                                     <button type="button" class="btn btn-primary btn-sm btn-block ">Agregar</button>
+                                     <button type="button" class="btn btn-primary btn-sm btn-block" >Quitar</button>
+                                   </div>
+                                </div>
+
+                                 <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                    <h4>Asis</h4>
+                                    <div style="width: 100%;font-size: 90px;color: #000;">
+                                      <span data-link="{{:estadisticas.asistencias}}" data-idasis="asist{{:numero}}{{:equipo}}"></span>
+                                    </div>
+                                   
+                                     <div style="width: 100%;">
+                                       <button type="button" class="btn btn-primary btn-sm btn-block asistbt" data-id="mas" data-idas="asist{{:numero}}{{:equipo}}">Agregar</button>
+                                       <button type="button" class="btn btn-primary btn-sm btn-block asistbt" data-id="menos" data-idas="asist{{:numero}}{{:equipo}}">Quitar</button>
+                                     </div>
+                                </div>
+
+                                 <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                   <h4>Bloqueos</h4>
+                                   <div style="width: 100%;font-size: 90px;color: #000;">
+                                    <span data-link="{{:estadisticas.bloqueos}}" data-idbloque="bloqueos{{:numero}}{{:equipo}}" ></span>
+                                    </div>
+                                 
+                                   <div style="width: 100%;">
+                                     <button type="button" class="btn btn-primary btn-sm btn-block bloqueosbt" data-id="mas" data-idb="bloqueos{{:numero}}{{:equipo}}">Agregar</button>
+                                     <button type="button" class="btn btn-primary btn-sm btn-block bloqueosbt" data-id="menos" data-idb="bloqueos{{:numero}}{{:equipo}}">Quitar</button>
+                                   </div>
+                                </div>
+
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+</script>
+ 
+ 
+</body>
+</html>

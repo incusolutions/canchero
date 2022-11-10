@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>BASKETBALL</title>
+  <meta name="description" content="Realtimebasketball" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui maximum-scale=1.0; user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/viewplanilla.css" type="text/css" />
+  <style type="text/css">
+  div {
+    overflow:hidden;
+}
+
+
+  </style>
+ 
+</head>
+<body style="background: #2b2f35;overflow-x:hidden;">
+ 
+ <div class="container-fluid">
+    <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1">Realtimebasket system</span>
+      <span class="navbar-brand mb-0 h3">Tiburones club</span>
+    </nav>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+             <div class="alert alert-success" role="alert" style="display:none">
+              Jugador guardado correctamente
+            </div>
+             <div class="card" >
+              <div class="card-body">
+                <h4 class="card-title">Agregar Jugador</h4>
+              
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Nombre del Jugador</label>
+                      <input type="text" class="form-control" id="nombredeljugador" ar placeholder="nombre">
+                      <small id="emailHelp" class="form-text text-muted">Digite nombre del jugador</small>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Equipo</label>
+                      <select class="form-control" id="selectequipo">
+                   
+                      </select>
+                      <small id="emailHelp" class="form-text text-muted">Digite el numero </small>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Numero</label>
+                      <input type="text" class="form-control" id="numercito"  placeholder="Numero con el que va jugar">
+                      <small id="emailHelp" class="form-text text-muted">Digite el numero </small>
+                    </div>
+
+                    <button class="btn btn-primary agregar">Agregar</button>
+               
+              </div>
+             </div>
+      </div>
+    </div>
+
+  
+
+ </div>
+
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+
+
+<script src="js/jsrender.js"></script>
+<script src="js/jquery.observable.js"></script>
+<script src="js/jquery.views.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/jquery.hammer.js"></script>
+
+
+
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="socket.io.js"></script>
+
+
+
+ <script type="text/javascript">
+      var socket = io.connect('http://192.168.1.18:5152', { 'forceNew': true });
+
+      socket.emit('mostrarequipos');
+
+      socket.on('mostrarequiposclient', function(data){
+          var template = $.templates("#inputselectequipos");
+          template.link("#selectequipo", data);
+         
+      });
+
+      $(document).on('click', '.agregar', function(){ 
+
+          var nombre = $('#nombredeljugador').val();
+          var numero = $('#numercito').val();
+          var equipo = $('#selectequipo').val();
+
+          socket.emit('agregarplayerequipo',{nombre:nombre,numero:numero,equipo:equipo});
+          $('.alert').show();
+
+          $('#nombredeljugador').val('');
+          $('#numercito').val('');
+          $('#selectequipo').val('');
+          
+  
+      });
+</script>    
+ 
+
+
+<script id="inputselectequipos" type="text/x-jsrender">
+   <option data-link="{:nombre}" value="{{:nombre}}"></option>
+</script>
+
+ 
+</body>
+</html>

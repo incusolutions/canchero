@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Flatkit - HTML Version | Bootstrap 4 Web App Kit with AngularJS</title>
+  <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+  <link rel="apple-touch-icon" href="../assets/images/logo.png">
+  <meta name="apple-mobile-web-app-title" content="Flatkit">
+  <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
+  
+  <!-- style -->
+ 
+   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+  <!-- build:css ../assets/styles/app.min.css -->
+
+  <!-- endbuild -->
+ 
+  <link rel="stylesheet" href="reloj/flipclock.css">
+
+  <style type="text/css">
+      .marca{
+        font-size: 187px;
+        color: #f10c52;
+      }
+      .bu{
+        display: none;
+      }
+  </style>
+
+
+</head>
+<body>
+  
+<!-- build:js scripts/app.html.js -->
+<!-- jQuery -->
+ 
+ 
+<script src="js/jquery-3.2.1.min.js"></script>
+   <script src="js/jsrender.js"></script>
+   <script src="js/jquery.observable.js"></script>
+   <script src="js/jquery.views.js"></script>
+
+   <script src="reloj/flipclock.js"></script> 
+
+
+    <script src="socket.io.js"></script>
+
+
+    <button class="btn btn-fw primary start">Comenzar reloj del cuarto</button>
+    <button class="btn btn-fw primary pausar">Pausar reloj del cuarto</button>
+    <button class="btn btn-fw primary reset">Comenzar reloj del cuarto</button>
+
+  </br>
+
+    <button class="btn btn-fw primary start2">Comenzar reloj de posicion</button>
+    <button class="btn btn-fw primary pausar2">Pausar reloj de posicion</button>
+    <button class="btn btn-fw primary reset2">Resetear reloj de posicion</button>
+
+  </br>
+
+   <button class="btn btn-fw primary mostrarjugadores">Mostrar mejores jugadores</button>
+
+    
+     
+
+    <script type="text/javascript">
+      var socket = io.connect('http://192.168.0.102:5152', { 'forceNew': true });
+
+    
+      $(document).ready(function() {
+           $(document).on('click', '.start', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock',funcion:'start'});
+           });
+
+           $(document).on('click', '.pausar', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock',funcion:'pausar'});
+           });
+
+           $(document).on('click', '.reset', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock',funcion:'reset'});
+           });
+
+
+            $(document).on('click', '.start2', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock2',funcion:'start'});
+           });
+
+           $(document).on('click', '.pausar2', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock2',funcion:'pausar'});
+           });
+
+           $(document).on('click', '.reset2', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock2',funcion:'reset'});
+           });
+
+
+
+            $(document).on('click', '.mostrarjugadores', function(){ 
+              socket.emit('mostrarjugadores',{reloj:'clock2',funcion:'reset'});
+           });
+         
+         
+          
+    });
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+     
+
+      
+
+
+
+
+<!-- endbuild -->
+</body>
+</html>

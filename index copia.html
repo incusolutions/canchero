@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>BASKETBALL</title>
+  <meta name="description" content="Realtimebasketball" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui maximum-scale=1.0; user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/viewplanilla.css" type="text/css" />
+  <style type="text/css">
+  div {
+    overflow:hidden;
+}
+  </style>
+ 
+</head>
+<body style="background: #2b2f35;overflow-x:hidden;">
+ 
+ <div class="container-fluid">
+    <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1">Realtimebasket system</span>
+      <span class="navbar-brand mb-0 h3">Tiburones club</span>
+    </nav>
+
+    <div class="row">
+      
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+       
+              
+          <div class="equipo1 row">
+            
+              <div class="tituloe col-sm-12 col-md-10 col-lg-10">
+                <span>Jaguares</span>
+              </div>
+
+              <div class="tituloe col-sm-12 col-md-2 col-lg-2">
+                <div class='puntoseq1' id="puntostotales"><span>0</span></div>
+              </div>
+    
+          </div>
+        
+       
+          <div class="tablaeq1 row">
+           
+                  <table class="table table-dark" style='font-size:13px'>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" class='fotod'>Foto</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Cestas</th>
+                        <th scope="col">PUNTOS</th>
+                        <th scope="col">+</th>
+                      </tr>
+                    </thead>
+                    <tbody id="equipo1">
+                     
+                      
+                    </tbody>
+                  </table>
+              
+          </div>
+
+
+      </div>
+      
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        
+          <div class="equipo2 row">
+            
+              <div class="tituloe col-sm-12 col-md-10 col-lg-10">
+                <span>Underdogs</span>
+              </div>
+
+              <div class="tituloe col-sm-12 col-md-2 col-lg-2">
+                <div class='puntoseq2' id="puntostotales2"><span>0</span></div>
+              </div>
+
+          </div>
+
+          <div class="tablaeq1 row">
+                  
+                  <table class="table table-dark" style='font-size:13px'>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" class='fotod'>Foto</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Cestas</th>
+                        <th scope="col">PUNTOS</th>
+                        <th scope="col">+</th>
+                      </tr>
+                    </thead>
+                    <tbody id="equipo2">
+                     
+
+
+                      
+                    </tbody>
+                  </table>
+                 
+          </div>
+
+
+      </div>
+
+    </div>
+
+
+ </div>
+
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+
+
+<script src="js/jsrender.js"></script>
+<script src="js/jquery.observable.js"></script>
+<script src="js/jquery.views.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/jquery.hammer.js"></script>
+
+
+
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="socket.io.js"></script>
+
+
+
+ <script type="text/javascript">
+       var socket = io.connect('http://192.168.0.101:5152', { 'forceNew': true });
+
+        var idpartido = 'Under-vs-Jaguares-2017-26-nov';
+
+     
+
+      socket.on('mostrar', function(data){
+          var template = $.templates("#tablajugadores");
+          template.link("#equipo1", data);
+
+          $('.esconder').hammer().on("swipe", function(event) {
+              $(this).hide();
+          });
+
+         
+
+          $('.equipo1').hammer().on("press", function(event) {
+              $('.esconder').show();
+          });
+      });
+
+      socket.on('mostrar2', function(data){
+          var template = $.templates("#tablajugadores2");
+          template.link("#equipo2", data);
+
+          $('.esconder').hammer().on("swipe", function(event) {
+              $(this).hide();
+          });
+
+          $('.equipo2').hammer().on("press", function(event) {
+              $('.esconder').show();
+          });
+      });
+
+      function actualizar(cesta,nombre,jugador,equipo,puntos,idjugador,idpartido,bloqueos,asistencias,tipo){
+        if(tipo=='rapido'){
+         socket.emit('guardarjugador',{cesta:cesta,nameplayer:nombre,player:jugador,team:equipo,score:puntos,idjuga:idjugador,idmatch:idpartido,block:bloqueos,pass:asistencias});
+        }
+        else{
+          setTimeout(function(){ 
+            socket.emit('guardarjugador',{cesta:cesta,nameplayer:nombre,player:jugador,team:equipo,score:puntos,idjuga:idjugador,idmatch:idpartido,block:bloqueos,pass:asistencias});
+          }, 3000);
+        }
+      }
+
+     
+
+      $(document).on('click', '.cestas', function(){ 
+          var jugador = $(this).attr('data-jugador');
+          var nombre = $(this).attr('data-nombre');
+          var idjugador = $(this).attr('data-idjugador');
+
+          var equipo = $(this).attr('data-equipo');
+          var puntos =  parseInt($("[data-numero='"+jugador+equipo+"']").text());
+
+          var cesta = $(this).attr('data-num');
+          puntos += parseInt(cesta);
+
+          if(puntos<0){
+             puntos = 0; 
+          }
+        
+        
+          $("[data-numero='"+jugador+equipo+"']").html(puntos);
+
+          var bloqueos =  parseInt($("[data-idbloque='bloqueos"+jugador+equipo+"']").text());
+          var asistencias =  parseInt($("[data-idasis='asist"+jugador+equipo+"']").text());
+
+          console.log(bloqueos+'asis'+asistencias);
+
+          actualizar(cesta,nombre,jugador,equipo,puntos,idjugador,idpartido,bloqueos,asistencias,"rapido");
+         // socket.emit('guardarjugador',{cesta:cesta,nameplayer:nombre,player:jugador,team:equipo,score:puntos,idjuga:idjugador,idmatch:idpartido,block:bloqueos,pass:asistencias});
+
+         // socket.emit('mejores');
+
+         
+          var puntoj = 0;
+
+          $("[data-puntosequipo='"+equipo+"']").each(function() {
+              var team = $(this).attr('data-puntosteam');
+              puntoj += parseInt($(this).text());
+
+              if(team=='equipo1'){
+                $("#puntostotales").html(puntoj); 
+              }
+              if(team=='equipo2'){
+                $("#puntostotales2").html(puntoj); 
+              }
+
+
+              socket.emit('displaypuntos',{puntos:puntoj,equipo:team,nombreequipo:equipo});
+              
+              console.log(puntoj);
+          });
+
+       
+          // iterar todas las cajas aulez he ir sumando puntos totales
+      });
+
+      
+       $(document).on('click', '.bloqueosbt', function(){ 
+
+        
+
+          var jugador = $(this).attr('data-jugador');
+          var nombre = $(this).attr('data-nombre');
+          var idjugador = $(this).attr('data-idjugador');
+
+          var equipo = $(this).attr('data-equipo');
+          var puntos =  parseInt($("[data-numero='"+jugador+equipo+"']").text());
+          var cesta = $(this).attr('data-num');
+
+          puntos += parseInt(cesta);
+
+          if(puntos<0){
+             puntos = 0; 
+          }
+        
+
+          var operacion = $(this).attr('data-id');
+          var id = $(this).attr('data-idb');
+          //var bloqueos =  parseInt($("[data-idbloque="+id+"]").text());
+          var bloqueos =  parseInt($("[data-idbloque='bloqueos"+jugador+equipo+"']").text());
+          var asistencias =  parseInt($("[data-idasis='asist"+jugador+equipo+"']").text());
+
+
+
+          var bloqueomas = 1;
+          var bloqueomenos = -1;
+       
+          if(operacion=='mas'){
+            bloqueos++;
+            $("[data-idbloque="+id+"]").html(bloqueos);
+            socket.emit('guardarjugadorestbk',{nameplayer:nombre,player:jugador,team:equipo,idjuga:idjugador,block:bloqueomas});
+
+
+          }
+          if(operacion=='menos'){
+            bloqueos--;
+             if(bloqueos<0){
+                bloqueos = 0;
+            }
+            $("[data-idbloque="+id+"]").html(bloqueos);
+             socket.emit('guardarjugadorestbk',{nameplayer:nombre,player:jugador,team:equipo,idjuga:idjugador,block:bloqueomenos});
+          }
+
+        
+           actualizar(cesta,nombre,jugador,equipo,puntos,idjugador,idpartido,bloqueos,asistencias,"no");
+      
+        
+          // iterar todas las cajas aulez he ir sumando puntos totales
+      });
+
+       $(document).on('click', '.asistbt', function(){ 
+
+          var jugador = $(this).attr('data-jugador');
+          var nombre = $(this).attr('data-nombre');
+          var idjugador = $(this).attr('data-idjugador');
+
+          var equipo = $(this).attr('data-equipo');
+          var puntos =  parseInt($("[data-numero='"+jugador+equipo+"']").text());
+          var cesta = $(this).attr('data-num');
+
+          puntos += parseInt(cesta);
+
+          if(puntos<0){
+             puntos = 0; 
+          }
+
+
+          var operacion = $(this).attr('data-id');
+          var id = $(this).attr('data-idas');
+
+          var bloqueos =  parseInt($("[data-idbloque='bloqueos"+jugador+equipo+"']").text());
+          var asistencias =  parseInt($("[data-idasis='asist"+jugador+equipo+"']").text());
+          //var asistencias =  parseInt($("[data-idasis="+id+"]").text());
+
+          var assmas = 1;
+          var assmenos = -1;
+       
+          if(operacion=='mas'){
+            asistencias++;
+            $("[data-idasis="+id+"]").html(asistencias);
+             socket.emit('guardarjugadorestass',{nameplayer:nombre,player:jugador,team:equipo,idjuga:idjugador,pass:assmas});
+          }
+          if(operacion=='menos'){
+            asistencias--;
+             if(asistencias<0){
+                asistencias = 0;
+            }
+            $("[data-idasis="+id+"]").html(asistencias);
+            socket.emit('guardarjugadorestass',{nameplayer:nombre,player:jugador,team:equipo,idjuga:idjugador,pass:assmenos});
+          }
+
+        
+          actualizar(cesta,nombre,jugador,equipo,puntos,idjugador,idpartido,bloqueos,asistencias,"no");
+
+      
+        
+          // iterar todas las cajas aulez he ir sumando puntos totales
+      });
+
+
+      $(document).on('click', '.faltascount', function(){ 
+
+          var operacion = $(this).attr('data-id');
+          var jugador = $(this).attr('data-jugador');
+          var equipo = $(this).attr('data-equipo');
+          var faltas =  parseInt($("[data-idfalta='faltasjugador"+jugador+equipo+"']").text());
+
+          if(operacion=='mas'){
+            faltas++;
+
+             if(faltas>=5){
+                faltas = 5;
+            }
+            
+            if(faltas>3){
+              $("[data-idnombrecol='"+jugador+equipo+"'] span").css("color","red");
+            }
+            $("[data-idfalta='faltasjugador"+jugador+equipo+"']").html(faltas);
+            
+          }
+          if(operacion=='menos'){
+            faltas--;
+             if(faltas<0){
+                faltas = 0;
+            }
+            if(faltas<=3){
+              $("[data-idnombrecol='"+jugador+equipo+"'] span").css("color","#fff");
+            }
+            $("[data-idfalta='faltasjugador"+jugador+equipo+"']").html(faltas);
+            
+          }
+        
+
+      });
+
+
+
+
+
+
+</script>    
+ 
+
+ <script id="tablajugadores" type="text/x-jsrender">
+                  <tr class="esconder">
+                      <th scope="row"><span data-link="{:numero}"></span></th>
+                      <td class="fotod"><a href=""><img data-link="src{:fotourl}" class="img-responsive img-circle"></a> </td>
+                      <td data-idnombrecol="{{:numero}}{{:equipo}}"><span data-link="{:nombre}"></span></td>
+                      <td>
+                         <div class="btn-group m-b">
+                            <button type="button" class="btn btn-sm btn-outline-primary white cestas" data-num="-1" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}"> - </button>
+                            <button type="button" class="btn btn-sm btn-outline-primary white cestas" data-num="1" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">1</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary white cestas" data-num="2" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">2</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary white cestas" data-num="3" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">3</button>
+                          </div>
+                      </td>
+                      <td style="text-align: center;color: #eaff54;font-size: 24px;">
+                        <span id="puntosreales" data-puntosequipo="{{:equipo}}" data-numero="{{:numero}}{{:equipo}}" data-puntosteam="equipo1">0</span>
+                       </td>
+                       <td> <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{:id}}" aria-expanded="false" aria-controls="collapseExample">MAS</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="6" style="padding: 0px;border: 0px;color: #000;">
+                          <div class="collapse" id="collapseExample{{:id}}" style="width: 100%;">
+                            <div class="card ">
+                              <div class="card-body">
+                                    <div class="row">
+                                      <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                        <h4>#</h4>
+                                        <span style="font-size: 90px;color: #000;" data-link="{:numero}"></span>
+                                      </div>
+                                       <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                         <h4>Faltas</h4>
+                                         <div style="width: 100%;font-size: 90px;color: #000;"><span  data-idfalta="faltasjugador{{:numero}}{{:equipo}}">0</span></div>
+                                         <div style="width: 100%;">
+                                           <button type="button" class="btn btn-primary btn-sm btn-block faltascount" data-id="mas" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Agregar</button>
+                                           <button type="button" class="btn btn-primary btn-sm btn-block faltascount" data-id="menos" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Quitar</button>
+                                         </div>
+                                      </div>
+                                       <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                          <h4>Asis</h4>
+                                          <div style="width: 100%;font-size: 90px;color: #000;">
+                                             <span data-idasis="asist{{:numero}}{{:equipo}}">0</span>
+                                          </div>
+                                           <div style="width: 100%;">
+                                             <button type="button" class="btn btn-primary btn-sm btn-block asistbt" data-id="mas" data-num="0" data-idas="asist{{:numero}}{{:equipo}}" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Agregar</button>
+                                             <button type="button" class="btn btn-primary btn-sm btn-block asistbt" data-id="menos" data-num="0" data-idas="asist{{:numero}}{{:equipo}}" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Quitar</button>
+                                           </div>
+                                      </div>
+                                       <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                         <h4>Blocks</h4>
+                                         <div style="width: 100%;font-size: 90px;color: #000;">
+                                           <span data-idbloque="bloqueos{{:numero}}{{:equipo}}" >0</span>
+                                          </div>
+                                         <div style="width: 100%;">
+                                           <button type="button" class="btn btn-primary btn-sm btn-block bloqueosbt" data-id="mas" data-num="0" data-idb="bloqueos{{:numero}}{{:equipo}}" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Agregar</button>
+                                           <button type="button" class="btn btn-primary btn-sm btn-block bloqueosbt" data-id="menos" data-num="0" data-idb="bloqueos{{:numero}}{{:equipo}}" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Quitar</button>
+                                         </div>
+                                      </div>
+                                    </div>
+                              </div>
+                            </div>
+                          </div>
+                      </td>
+                    </tr>
+ </script>
+
+ <script id="tablajugadores2" type="text/x-jsrender">
+                  <tr class="esconder">
+                      <th scope="row"><span data-link="{:numero}"></span></th>
+                      <td class="fotod"><a href=""><img data-link="src{:fotourl}" class="img-responsive img-circle"></a> </td>
+                      <td><span data-link="{:nombre}"></span></td>
+                      <td>
+                         <div class="btn-group m-b">
+                           <button type="button" class="btn btn-sm btn-outline-primary white cestas" data-num="-1" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}"> - </button>
+                            <button type="button" class="btn btn-sm btn-outline-primary white cestas" data-num="1" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">1</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary white cestas" data-num="2" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">2</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary white cestas" data-num="3" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">3</button>
+                          </div>
+                      </td>
+                      <td style="text-align: center;color: #eaff54;font-size: 24px;">
+                        <span id="puntosreales" data-puntosequipo="{{:equipo}}" data-numero="{{:numero}}{{:equipo}}" data-puntosteam="equipo2">0</span>
+                       </td>
+                       <td> <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{:id}}" aria-expanded="false" aria-controls="collapseExample">MAS</a></td>
+                    </tr>
+                   <tr>
+                      <td colspan="6" style="padding: 0px;border: 0px;color: #000;">
+                          <div class="collapse" id="collapseExample{{:id}}" style="width: 100%;">
+                            <div class="card ">
+                              <div class="card-body">
+                                    <div class="row">
+                                      <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                        <h4>#</h4>
+                                        <span style="font-size: 90px;color: #000;" data-link="{:numero}"></span>
+                                      </div>
+                                       <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                         <h4>Faltas</h4>
+                                         <div style="width: 100%;font-size: 90px;color: #000;"><span>0</span></div>
+                                         <div style="width: 100%;">
+                                           <button type="button" class="btn btn-primary btn-sm btn-block ">Agregar</button>
+                                           <button type="button" class="btn btn-primary btn-sm btn-block" >Quitar</button>
+                                         </div>
+                                      </div>
+                                       <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                          <h4>Asis</h4>
+                                          <div style="width: 100%;font-size: 90px;color: #000;">
+                                             <span data-idasis="asist{{:numero}}{{:equipo}}">0</span>
+                                          </div>
+                                           <div style="width: 100%;">
+                                             <button type="button" class="btn btn-primary btn-sm btn-block asistbt" data-id="mas" data-num="0" data-idas="asist{{:numero}}{{:equipo}}" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Agregar</button>
+                                             <button type="button" class="btn btn-primary btn-sm btn-block asistbt" data-id="menos" data-num="0" data-idas="asist{{:numero}}{{:equipo}}" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Quitar</button>
+                                           </div>
+                                      </div>
+                                       <div class='col-sm-3 col-md-3 col-lg-3' style="text-align:center">
+                                         <h4>Blocks</h4>
+                                         <div style="width: 100%;font-size: 90px;color: #000;">
+                                           <span data-idbloque="bloqueos{{:numero}}{{:equipo}}" >0</span>
+                                          </div>
+                                         <div style="width: 100%;">
+                                           <button type="button" class="btn btn-primary btn-sm btn-block bloqueosbt" data-id="mas" data-num="0" data-idb="bloqueos{{:numero}}{{:equipo}}" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Agregar</button>
+                                           <button type="button" class="btn btn-primary btn-sm btn-block bloqueosbt" data-id="menos" data-num="0" data-idb="bloqueos{{:numero}}{{:equipo}}" data-idjugador="{{:id}}" data-nombre="{{:nombre}}" data-jugador="{{:numero}}" data-equipo="{{:equipo}}">Quitar</button>
+                                         </div>
+                                      </div>
+                                    </div>
+                              </div>
+                            </div>
+                          </div>
+                      </td>
+                    </tr>
+</script>
+
+
+ 
+</body>
+</html>

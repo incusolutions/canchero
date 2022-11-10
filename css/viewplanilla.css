@@ -1,0 +1,39 @@
+.equipo1{
+	
+	background: #0cc2aa;
+}
+.tituloe{
+	
+	height: 100px;
+	text-align: center;
+	line-height: 100px;
+	font-size: 30px;
+}
+.equipo2{
+	
+	background: #a88add;
+	
+}
+.puntoseq1{
+	background:#337d72;
+	height: 100px;
+	line-height: 100px;
+	color: #fff;
+	font-size: 5vw;
+}
+.puntoseq2{
+	background:#342c52;
+	height: 100px;
+	line-height: 100px;
+	color: #fff;
+	font-size: 5vw;
+}
+
+#dashboardplanillero{
+	
+	visibility: hidden;
+}
+
+#matchgame{
+    margin-top: 15%;
+}

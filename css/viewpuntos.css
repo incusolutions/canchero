@@ -1,0 +1,20 @@
+.neq{
+	font-size: 55px;
+	color: #fff;
+	word-wrap: break-word;
+}
+.colpuntos{
+	padding: 10px;
+	text-align: center;
+}
+
+  .marca{
+       font-size: 20vw;
+        color: #f10c52;
+      }
+  .bu{
+        display: none;
+      }
+.bestview{
+	display: none;
+}

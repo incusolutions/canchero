@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>BASKETBALL</title>
+  <meta name="description" content="Realtimebasketball" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/viewcontrol.css" type="text/css" />
+ 
+ 
+</head>
+<body style="background: #000;">
+ 
+ <div class="container-fluid">
+
+
+    <div class="row" style="padding:40px">
+    
+    <h1 class="display-4" style="font-size: 27px;">Tiempo cuarto</h1>
+    <button class="btn btn-outline-primary btn-lg btn-block start">Comenzar</button>
+    <button class="btn btn-outline-primary btn-lg btn-block pausar">Pausar </button>
+    <button class="btn btn-outline-primary btn-lg btn-block reset">Resetear</button>
+    
+   
+    </div>
+
+   
+    <div class="row" style="padding: 10px 40px 10px 40px;">
+      <button class="btn btn-outline-primary btn-lg btn-block switch">Cambiar vista</button>
+    </div>
+
+    
+    <div class="row" style="padding:40px">
+    <h1 class="display-4" style="font-size: 27px;">Posesión</h1>
+    <span id="cronometro" style="font-size: 15px; color:red"></span>
+    <button class="btn btn-outline-primary btn-lg btn-block reset2">24</button>
+    <button class="btn btn-outline-primary btn-lg btn-block reset214">14</button>
+   <!-- 
+    <button class="btn btn-outline-primary btn-lg btn-block pausar2">Parar</button> 
+    <button class="btn btn-outline-primary btn-lg btn-block start2">Comenzar</button>
+   -->
+    </div>
+ 
+
+   
+
+
+
+ </div>
+
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/jsrender.js"></script>
+<script src="js/jquery.observable.js"></script>
+<script src="js/jquery.views.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+
+<script src="socket.io.js"></script>
+
+
+    <script type="text/javascript">
+      var socket = io.connect('http://25.8.26.2:5152', { 'forceNew': true });
+
+
+
+    
+      $(document).ready(function() {
+
+             socket.on('cronometrocliente', function(data){
+             $('#cronometro').html(data.segundos);
+ 
+           });
+
+          $(document).on('click', '.switch', function(){ 
+            
+              socket.emit('switchvistaserver');
+           });
+
+           $(document).on('click', '.start', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime2',{reloj:'clock',funcion:'start'});
+           });
+
+           $(document).on('click', '.pausar', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime2',{reloj:'clock',funcion:'pausar'});
+           });
+
+           $(document).on('click', '.reset', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime2',{reloj:'clock',funcion:'reset'});
+           });
+
+
+            $(document).on('click', '.start2', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock2',funcion:'start'});
+           });
+
+           $(document).on('click', '.pausar2', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock2',funcion:'pausar'});
+           });
+
+           $(document).on('click', '.reset2', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock2',funcion:'reset'});
+           });
+
+            $(document).on('click', '.reset214', function(){ 
+              console.log('equipo:');
+              socket.emit('controltime',{reloj:'clock2',funcion:'reset14'});
+           });
+
+
+
+            $(document).on('click', '.mostrarjugadores', function(){ 
+              socket.emit('mostrarjugadores',{reloj:'clock2',funcion:'reset'});
+           });
+         
+        
+         
+          
+    });
+
+
+    </script>
+
+ 
+</body>
+</html>
