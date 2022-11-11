@@ -241,15 +241,11 @@
     localStorage.clear();
     localStorage.removeItem('mysala');
     
-     var socket = io.connect(localip);
+     //var socket = io.connect(localip);
 
-    /*
-    var socket = io.connect(localip, 
-                { 
-                'forceNew': true, 
-                'transport':['websocket', 'polling', 'flashsocket']
-               });
-    */
+    
+    var socket = io.connect(localip, { 'forceNew': true, 'transport':['websocket', 'polling', 'flashsocket']});
+    
     
     /*
     var socket = io.connect(localip, {
