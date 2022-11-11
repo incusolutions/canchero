@@ -137,8 +137,20 @@
     let localip = "http://54.159.18.9:5152";
     
    
-
-    var socket = io.connect(localip, { 'forceNew': true });
+    
+    
+     var socket = io.connect(localip, {
+        cors:{
+              origin:"http://54.159.18.9:5152",              
+              methods: ["GET", "POST"],
+              credentials: true
+        } 
+         
+     });
+    
+    
+    
+    
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
