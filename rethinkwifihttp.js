@@ -2,7 +2,7 @@
 var app = require('http').createServer()
 //var SerialPort = require('serialport');
 var _ = require('underscore');
-var io = require('/usr/local/lib/node_modules/socket.io')(app);
+var io = require('node_modules/socket.io')(app);
 r = require('rethinkdb')
 var connection = null;
 var conn;
