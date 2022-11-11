@@ -23,7 +23,7 @@
  <div class="container-fluid">
     <nav class="navbar navbar-light bg-light">
       <span class="navbar-brand mb-0 h1">Realtimebasket system ipad</span>
-      <span class="navbar-brand mb-0 h3">Tiburones club hjhjh</span>
+      <span class="navbar-brand mb-0 h3">Tiburones club</span><span id="sala"></span>
     </nav>
 
     <div id="matchgame" class="row">
@@ -300,6 +300,9 @@
       });
 
       socket.on('mostrar', function(data){
+        
+         let mysalita = localStorage.getItem(mysala);
+         $("#sala").html(mysalita);
          $("#equipo1").html('mostrar');
         
           var template = $.templates("#tablajugadores");
