@@ -242,7 +242,7 @@
 
 
     
-    var socket = io.connect(localip, { 'forceNew': true });
+    var socket = io.connect(localip, {transport:['websockect', 'polling', 'flashsocket']});
 
           function addZero(i) {
           if (i < 10) {
