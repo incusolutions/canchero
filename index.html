@@ -283,13 +283,22 @@
         return gameid
       }
    
+      const salaLocal = () =>{
+          
+          let mysalita = localStorage.getItem('mysala');
+          return mysalita;
+        
+      }
       
       socket.on('obtenersala', function(data){
         idsala = data;
         console.log(data+'mostrarequiposshinnita');
+        
       });
+      
+      
 
-      socket.emit('mostrarequipos');
+      socket.emit('mostrarequipos', salaLocal() );
 
       socket.on('mostrarequiposclient', function(data){
           var template = $.templates("#inputselectequipos");
