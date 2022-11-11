@@ -297,8 +297,12 @@
       });
       
       
+      idsala = salarandom();
+      localStorage.setItem('mysala', idsala);
+        
+      
 
-      socket.emit('mostrarequipos', salaLocal() );
+      socket.emit('mostrarequipos', idsala );
 
       socket.on('mostrarequiposclient', function(data){
           var template = $.templates("#inputselectequipos");
@@ -658,8 +662,9 @@
         $("#dashboardplanillero").css("visibility","visible");
          
          // despues miramos si guardamos en un loccalstorage
-         idsala = salarandom();
-         localStorage.setItem('mysala', idsala);
+         
+         //idsala = salarandom();
+         //localStorage.setItem('mysala', idsala);
         
          
          idpartido = equipo1+'-vs-'+equipo2+'-'+cod;
