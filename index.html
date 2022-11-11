@@ -240,7 +240,8 @@
 
 
 
-    var socket = io.connect(localip);
+    
+    var socket = io.connect(localip, { 'forceNew': true });
 
           function addZero(i) {
           if (i < 10) {
