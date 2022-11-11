@@ -296,9 +296,14 @@
         
       });
       
+      iniciarPlanilla();
       
-      idsala = salarandom();
-      localStorage.setItem('mysala', idsala);
+      const iniciarPlanilla = () =>{
+          idsala = salarandom();
+          localStorage.setItem('mysala', idsala);
+          socket.emit('crearsala',{id:idsala});  
+      }
+      
         
       
 
@@ -672,7 +677,7 @@
          socket.emit('cargarmejores',{id:idpartido});
 
          // idsala = 'emili';
-         socket.emit('crearsala',{id:idsala});
+         //socket.emit('crearsala',{id:idsala});
        
           
 
