@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -242,7 +242,14 @@
 
 
     
-    var socket = io.connect(localip, {cors:{origin:"http://54.159.18.9:5152", credentials: true} });
+    var socket = io.connect(localip, {
+        cors:{
+              origin:"http://54.159.18.9",              
+              methods: ["GET", "POST"],
+              credentials: true
+        } 
+         
+     });
 
           function addZero(i) {
           if (i < 10) {
