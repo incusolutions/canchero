@@ -242,7 +242,7 @@
 
 
     
-    var socket = io.connect(localip, {transport:['websockect', 'polling', 'flashsocket']});
+    var socket = io.connect(localip, {cors:{origin:"http://54.159.18.9"} });
 
           function addZero(i) {
           if (i < 10) {
