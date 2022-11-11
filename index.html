@@ -301,8 +301,13 @@
 
       socket.on('mostrar', function(data){
         
-         let mysalita = localStorage.getItem(mysala);
-         $("#sala").html(mysalita);
+         
+         setTimeout(function(){
+              let mysalita = localStorage.getItem(mysala);
+              $("#sala").html(mysalita);
+          }, 2000);
+         
+         
          $("#equipo1").html('mostrar');
         
           var template = $.templates("#tablajugadores");
