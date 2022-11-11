@@ -296,7 +296,6 @@
         
       });
       
-      iniciarPlanilla();
       
       const iniciarPlanilla = () =>{
           idsala = salarandom();
@@ -304,6 +303,7 @@
           socket.emit('crearsala',{id:idsala});  
       }
       
+      iniciarPlanilla();
         
       
 
