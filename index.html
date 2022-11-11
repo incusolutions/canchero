@@ -239,7 +239,7 @@
 
 
 
-      var socket = io.connect(localip, { 'forceNew': true });
+    var socket = io.connect(localip, { 'forceNew': true }, cors:{origin:"http://54.159.18.9" });
 
           function addZero(i) {
           if (i < 10) {
