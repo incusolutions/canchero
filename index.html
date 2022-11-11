@@ -648,14 +648,16 @@
 
         $("#dashboardplanillero").css("visibility","visible");
          
-         idpartido = equipo1+'-vs-'+equipo2+'-'+cod;
-         socket.emit('cargarequipos',{equipo1:equipo1,equipo2:equipo2,idpartido:idpartido});
-         socket.emit('cargarmejores',{id:idpartido});
-
          // despues miramos si guardamos en un loccalstorage
          idsala = salarandom();
          localStorage.setItem('mysala', idsala);
-        // idsala = 'emili';
+        
+         
+         idpartido = equipo1+'-vs-'+equipo2+'-'+cod;
+         socket.emit('cargarequipos',{idroom:idsala, equipo1:equipo1,equipo2:equipo2,idpartido:idpartido});
+         socket.emit('cargarmejores',{id:idpartido});
+
+         // idsala = 'emili';
          socket.emit('crearsala',{id:idsala});
        
           

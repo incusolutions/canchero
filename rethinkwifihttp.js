@@ -74,7 +74,8 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
 								        	
 								        	
 												 //io.in(sesionid).emit('mostrar', result); 
-										 	 	 io.emit('mostrar',result);
+										 	 	 //io.emit('mostrar',result);
+										 	 	 io.in(data.idroom).emit('mostrar',result);
 
 										 	 	 
 
