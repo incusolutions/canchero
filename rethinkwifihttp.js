@@ -108,13 +108,13 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
 
 
 
-				 	 socket.on('mostrarequipos', function(data){
+				 	 socket.on('mostrarequipos', function(sala){
 
 						 // el cliente se une a la sala con el id creado anteriormente
 						 //socket.join(gameid);
 						 
 						 
-						 console.log(data+'MANOOOOO');
+						 console.log(sala+'MANOOOOO');
 
 				 	 	 r.db("bk").table('equipos').run(conn, function(err, cursor) {
 					   		 if (err) throw err;
@@ -123,7 +123,7 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
 
 						        	
 								 		
-								 	 	 io.emit('mostrarequiposclient',result);
+								 	 	 io.in(sala).emit('mostrarequiposclient',result);
 										 //  io.in(sesionid).emit('mostrarequiposclient', result); 
  
 
