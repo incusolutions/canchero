@@ -242,7 +242,7 @@
 
 
     
-    var socket = io.connect(localip, {cors:{origin:"http://54.159.18.9"} });
+    var socket = io.connect(localip, {cors:{origin:"http://54.159.18.9:5152", credentials: true} });
 
           function addZero(i) {
           if (i < 10) {
