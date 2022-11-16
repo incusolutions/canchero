@@ -198,7 +198,7 @@ app.listen(5152);
 													                                                "idpartido":data.idmatch,
 													                                                "mes":data.mes,
 													                                                "idjugador":data.idjuga,
-													                                                "nombre":data.        
+													                                                "nombre":data.nameplayer,        
 													                                                "numero":data.player,
 												
 												  "equipo":data.team,
