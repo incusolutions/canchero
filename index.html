@@ -358,11 +358,11 @@
 
       function actualizar(cesta,nombre,jugador,equipo,puntos,idjugador,idpartido,bloqueos,asistencias,tipo){
         if(tipo=='rapido'){
-         socket.emit('guardarjugador',{cesta:cesta,nameplayer:nombre,player:jugador,team:equipo,score:puntos,idjuga:idjugador,idmatch:idpartido,block:bloqueos,pass:asistencias,mes:meses[f.getMonth()]});
+         socket.emit('guardarjugador',{idroom:salaLocal(),cesta:cesta,nameplayer:nombre,player:jugador,team:equipo,score:puntos,idjuga:idjugador,idmatch:idpartido,block:bloqueos,pass:asistencias,mes:meses[f.getMonth()]});
         }
         else{
           setTimeout(function(){ 
-            socket.emit('guardarjugador',{cesta:cesta,nameplayer:nombre,player:jugador,team:equipo,score:puntos,idjuga:idjugador,idmatch:idpartido,block:bloqueos,pass:asistencias,mes:meses[f.getMonth()]});
+            socket.emit('guardarjugador',{idroom:salaLocal(),cesta:cesta,nameplayer:nombre,player:jugador,team:equipo,score:puntos,idjuga:idjugador,idmatch:idpartido,block:bloqueos,pass:asistencias,mes:meses[f.getMonth()]});
           }, 3000);
         }
       }

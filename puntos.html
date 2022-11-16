@@ -43,49 +43,53 @@
      <div class="container-fluid">
        
           <div class="puntosview">
-          
-            <div class="row" style="padding-top: 10%;">
-              
-              <div class="col-12 col-sm-12 col-md-4 col-lg-4 colpuntos" >
-                   
-                        <span id="nombre" class="neq blockquote"></span></br>
-                        <span id="equipo1" class="marca">0</span>
-    
-                     
-              </div>
-    
-               <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="padding-top: 10%;">
-                            <div class='row'>
-                              <div class="clock"></div>
-                              <button class="start bu">Start Clock</button>
-                              <button class="pause bu">Pause Clock</button>
-                              <button class="reset bu">Reset Clock</button>
-                            </div>
-    
-                            <div class='row'>
-                              <div class="col-12" style="text-align:  center;">
-                                <span class="hack" style="color: #f9f106;font-size: 200px;"></span>
-                                <div class="clock2" style="display:none"></div>
-                                <button class="start2 bu">Continue Clock</button>
-                                <button class="pause2 bu">Pause Clock</button>
-                                <button class="reset2 bu">Start/reset Clock</button>
-                              </div>
-                            </div>
                 
-              </div>
-    
-               <div class="col-12 col-sm-12 col-md-4 col-lg-4 colpuntos">
-               
-                   <span id="nombre2" class="neq"></span></br>
-                   <span id="equipo2" class="marca">0</span>
-               
-              </div>
-              
-            </div>
-            
-            
+                  <div class="row" style="padding-top: 10%;">
+                    
+                          <div class="col-12 col-sm-12 col-md-4 col-lg-4 colpuntos" >
+                              
+                                    <span id="nombre" class="neq blockquote"></span></br>
+                                    <span id="equipo1" class="marca">0</span>
+                
+                                
+                          </div>
+                
+                          <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="padding-top: 10%;">
+                                        <div class='row'>
+                                          <div class="clock"></div>
+                                          <button class="start bu">Start Clock</button>
+                                          <button class="pause bu">Pause Clock</button>
+                                          <button class="reset bu">Reset Clock</button>
+                                        </div>
+                
+                                        <div class='row'>
+                                          <div class="col-12" style="text-align:  center;">
+                                            <span class="hack" style="color: #f9f106;font-size: 200px;"></span>
+                                            <div class="clock2" style="display:none"></div>
+                                            <button class="start2 bu">Continue Clock</button>
+                                            <button class="pause2 bu">Pause Clock</button>
+                                            <button class="reset2 bu">Start/reset Clock</button>
+                                          </div>
+                                        </div>
+                            
+                          </div>
+                
+                          <div class="col-12 col-sm-12 col-md-4 col-lg-4 colpuntos">
+                          
+                              <span id="nombre2" class="neq"></span></br>
+                              <span id="equipo2" class="marca">0</span>
+                          
+                          </div>
+                          
+                  </div>
+                  
+                  <div class="row">
+                      <ul id="regitro"></ul>
+                  </div>
+                  
             
           </div>
+          
           <div class="bestview">
             
               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -341,7 +345,10 @@
                 }
     
     
-    
+    socket.on('statsprint', function(data){
+      var template = $.templates("#stats");
+      template.link('#resgistros',data);
+    })
     
     
      
@@ -379,6 +386,10 @@
                                 
                               </div>
                           </div>
+    </script>
+    
+    <script id="stats" type="text/x-jsrender">
+      <li>{{:nombre}} / {{:estadisticas.punto}} / {{:estadisticas.cestas}}</li>
     </script>
      
      
