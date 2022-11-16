@@ -23,7 +23,7 @@ app.listen(5152);
 
 
 
-r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
+  r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
     if (err) throw err;
     connection = conn;
 
@@ -195,17 +195,18 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
 									     r.db('bk').table('partidos').insert([
 
 												{
-													"idpartido":data.idmatch,
-													"mes":data.mes,
-													"idjugador":data.idjuga,
-													"nombre":data.nameplayer,
-													"numero":data.player,
-													"equipo":data.team,
-													"estadisticas": {
-														"puntos":data.score,
-														"bloqueos":data.block,
-														"asistencias":data.pass
-													} 
+													                                                "idpartido":data.idmatch,
+													                                                "mes":data.mes,
+													                                                "idjugador":data.idjuga,
+													                                                "nombre":data.        
+													                                                "numero":data.player,
+												
+												  "equipo":data.team,
+        											                                                                         	                                                "estadisticas": {
+														                                                "puntos":data.score,
+														                                                "bloqueos":data.block,
+														                                                "asistencias":data.pass
+													                                                 }  
 												}
 											
 										]).run(conn, function(err, cursor) {
@@ -252,14 +253,14 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
 										           bkano = parseInt(data.block);
 										           bk = parseInt(bkguardados+bkano);
 										           if(bk<0){
-										           	bk = 0;
+										           	                                                    bk = 0;
 										           }
 											    });
 											    cursor.toArray(function(err, result) {
 											        if (err) throw err;
 											        //console.log(JSON.stringify(result, null, 2));
 											        r.db('bk').table("jugadores").filter({id:data.idjuga}).update(
-														{estadisticas: {bloqueos:bk}}
+														                                               {estadisticas: {bloqueos:bk}}
 													).run(conn, function(err, cursor) {
 														if(err) throw err;
 														//console.log(JSON.stringify(null, 2));
@@ -291,10 +292,10 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
 											        //console.log(JSON.stringify(result, null, 2));
 											        r.db('bk').table("jugadores").filter({id:data.idjuga}).update(
 														{estadisticas: {asistencias:pass}}
-													).run(conn, function(err, cursor) {
-														if(err) throw err;
-														//console.log(JSON.stringify(null, 2));
-													})
+																								        ).run(conn, function(err, cursor) {
+														                                       if(err) throw err;
+	                                    													//console.log(JSN.srinifynul, 2));
+												                    	})
 											    });
 
 						});
