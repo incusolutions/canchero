@@ -235,9 +235,9 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
                   asistencias: data.pass,
                 },
               };
-
-              io.in(data.idroom).emit("statsprint", listat);
             }
+
+            io.in(data.idroom).emit("statsprint", listat);
 
             //console.log(JSON.stringify(result, null, 2));
           });
