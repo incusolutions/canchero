@@ -220,22 +220,22 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
                   if (err) throw err;
                   //console.log(JSON.stringify(null, 2));
                 });
-
-              const listat = {
-                idpartido: data.idmatch,
-                mes: data.mes,
-                idjugador: data.idjuga,
-                nombre: data.nameplayer,
-                numero: data.player,
-                equipo: data.team,
-                estadisticas: {
-                  cestas: data.cesta,
-                  puntos: data.score,
-                  bloqueos: data.block,
-                  asistencias: data.pass,
-                },
-              };
             }
+
+            const listat = {
+              idpartido: data.idmatch,
+              mes: data.mes,
+              idjugador: data.idjuga,
+              nombre: data.nameplayer,
+              numero: data.player,
+              equipo: data.team,
+              estadisticas: {
+                cestas: data.cesta,
+                puntos: data.score,
+                bloqueos: data.block,
+                asistencias: data.pass,
+              },
+            };
 
             io.in(data.idroom).emit("statsprint", listat);
 
