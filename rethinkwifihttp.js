@@ -111,7 +111,15 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
     });
 
     socket.on("guardarjugador", function (data) {
-      console.log("message: " + data.player + data.team + data.score + data.id);
+      console.log(
+        "message: " +
+          data.player +
+          data.team +
+          data.score +
+          data.id +
+          "IDROOM" +
+          data.idroom
+      );
 
       r.db("bk")
         .table("jugadores")
