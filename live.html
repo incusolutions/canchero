@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>BASKETBALL</title>
+  <meta name="description" content="Realtimebasketball" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/viewcontrol.css" type="text/css" />
+ 
+ 
+</head>
+<body style="background: #000;">
+ 
+ <div class="container-fluid">
+
+          <div class="row" style="padding:40px">
+                
+                <ul id="ligames"></ul>
+       
+         </div>
+
+ </div>
+
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/jsrender.js"></script>
+<script src="js/jquery.observable.js"></script>
+<script src="js/jquery.views.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+
+<script src="socket.io.js"></script>
+
+
+    <script type="text/javascript">
+
+        let hamchiip = "http://25.8.26.2:5152";
+        let localip = "http://54.159.18.9:5152";
+        
+        var socket = io.connect(localip, {
+            cors:{
+                  origin:"http://54.159.18.9:5152",              
+                  methods: ["GET", "POST"],
+                  credentials: true
+            } 
+         });
+     
+    
+      $(document).ready(function() {
+
+        $(document).on('click', '.partiditos', function(){ 
+              let idsala = $(this).attr('data-link');
+              window.open('http://54.159.18.9:5152?sala='+idsala+, '_blank');
+        });
+
+        
+        socket.on('livegames', function(data){
+              $("#ligames").append('<li class="partiditos" data-link='+data.idroom+'><span>'+ data.equipo1 +'</span><span>VS '+data.equipo2+'</span> </li>');
+              
+        });
+
+      
+         
+          
+      });
+
+
+    </script>
+
+ 
+</body>
+</html>

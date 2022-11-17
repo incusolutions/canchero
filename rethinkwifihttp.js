@@ -39,6 +39,7 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
 
     //io.emit('mostrar',result);
 
+    // se unen a la misma sala
     socket.on("crearsala", function (data) {
       //io.sockets.join('emili');
 
@@ -87,6 +88,13 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
             //console.log(JSON.stringify(result, null, 2));
           });
         });
+
+      io.emit("livegames", {
+        equipo1: data.equipo1,
+        equipo2: data.equipo2,
+        idgame: data.idpartido,
+        idroom: data.idroom,
+      });
     });
 
     socket.on("mostrarequipos", function (sala) {
