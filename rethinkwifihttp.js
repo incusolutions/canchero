@@ -103,12 +103,7 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
       console.log("ESTA SON LAS PLANILLAS ONLINE");
       console.log(planillasOnline);
 
-      io.emit("livegames", {
-        equipo1: data.equipo1,
-        equipo2: data.equipo2,
-        idgame: data.idpartido,
-        idroom: data.idroom,
-      });
+      io.emit("livegames", planillasOnline);
     });
 
     socket.on("mostrarequipos", function (sala) {
