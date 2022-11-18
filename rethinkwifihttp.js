@@ -451,7 +451,7 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
     socket.on("disconnect", function () {
       console.log("a user disconnected sockect");
 
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i < planillasOnline.length; i++) {
         if (planillasOnline[i].socketid === socket.id) {
           planillasOnline.splice(i, 1);
         }
