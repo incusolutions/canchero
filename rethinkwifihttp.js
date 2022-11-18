@@ -53,13 +53,19 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
       //io.emit('obtenersala',result);
     });
 
+    socket.on("cargalives", function (data) {
+      io.emit("livegames", planillasOnline);
+    });
+
     socket.on("cargargames", function (data) {
       r.db("bk")
         .table("gamesbd")
-        .run(conn, function (err, result) {
+        .run(conn, function (err, cursor) {
           if (err) throw err;
-
-          io.emit("bdgames", result);
+          cursor.toArray(function (err, result) {
+            if (err) throw err;
+            io.emit("bdgames", result);
+          });
           // console.log('coma'+reves);
         });
     });
