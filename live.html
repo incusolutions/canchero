@@ -61,6 +61,7 @@
 
         
         socket.on('livegames', function(data){
+              $("#ligames").html('');
               data.forEach(function(planilla) {
                   $("#ligames").append('<li class="partiditos" data-link='+planilla.idroom+'><span>'+planilla.equipo1 +'</span><span>VS '+planilla.equipo2+'</span> </li>');
               });
