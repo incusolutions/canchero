@@ -457,7 +457,7 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
         }
       }
 
-      conole.log("PLANILLASONLINE DESCONECCION");
+      console.log("PLANILLASONLINE DESCONECCION");
       console.log(planillasOnline);
     });
   });
