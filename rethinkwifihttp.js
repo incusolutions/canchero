@@ -16,6 +16,8 @@ app.listen(5152);
 //}
 //});
 
+const planillasOnline = [];
+
 r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
   if (err) throw err;
   connection = conn;
@@ -88,6 +90,17 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
             //console.log(JSON.stringify(result, null, 2));
           });
         });
+
+      let dataplanilla = {
+        equipo1: data.equipo1,
+        equipo2: data.equipo2,
+        idgame: data.idpartido,
+        idroom: data.idroom,
+      };
+
+      planillasOnline.push(dataplanilla);
+      console.log("ESTA SON LAS PLANILLAS ONLINE");
+      console.log(planillasOnline);
 
       io.emit("livegames", {
         equipo1: data.equipo1,
