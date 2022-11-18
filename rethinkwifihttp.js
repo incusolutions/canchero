@@ -96,6 +96,7 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
         equipo2: data.equipo2,
         idgame: data.idpartido,
         idroom: data.idroom,
+        socketid: socket.id,
       };
 
       planillasOnline.push(dataplanilla);
@@ -449,6 +450,15 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
 
     socket.on("disconnect", function () {
       console.log("a user disconnected sockect");
+
+      for (var i = 0; i < arr.length; i++) {
+        if (planillasOnline[i].socketid === socket.id) {
+          planillasOnline.splice(i, 1);
+        }
+      }
+
+      conole.log("PLANILLASONLINE DESCONECCION");
+      console.log(planillasOnline);
     });
   });
 });
