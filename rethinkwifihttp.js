@@ -104,6 +104,14 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
       console.log(planillasOnline);
 
       io.emit("livegames", planillasOnline);
+
+      r.db("bk")
+        .table("gamesbd")
+        .insert([planillasOnline])
+        .run(conn, function (err, cursor) {
+          if (err) throw err;
+          //console.log(JSON.stringify(null, 2));
+        });
     });
 
     socket.on("mostrarequipos", function (sala) {
@@ -451,6 +459,8 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
           planillasOnline.splice(i, 1);
         }
       }
+
+      io.emit("livegames", planillasOnline);
 
       console.log("PLANILLASONLINE DESCONECCION");
       console.log(planillasOnline);
