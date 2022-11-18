@@ -54,7 +54,8 @@
     
       $(document).ready(function() {
         
-        socket.emit('cargargames');    
+        socket.emit('cargargames');
+        socket.emit('cargalives');    
         
         socket.on('bdgames', function(data){
            console.log(data);   
