@@ -53,6 +53,17 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
       //io.emit('obtenersala',result);
     });
 
+    socket.on("cargargames", function (data) {
+      r.db("bk")
+        .table("gamesbd")
+        .run(conn, function (err, result) {
+          if (err) throw err;
+
+          io.emit("bdgames", result);
+          // console.log('coma'+reves);
+        });
+    });
+
     socket.on("cargarequipos", function (data) {
       idpartidoactual = data.idpartido;
 

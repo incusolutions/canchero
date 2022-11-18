@@ -53,6 +53,12 @@
      
     
       $(document).ready(function() {
+        
+        socket.emit('cargargames');    
+        
+        sockect.on('bdgames'), funcion(data){
+           console.log(data);   
+        });
 
         $(document).on('click', '.partiditos', function(){ 
               let idsala = $(this).attr('data-link');
