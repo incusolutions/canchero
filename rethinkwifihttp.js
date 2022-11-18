@@ -107,7 +107,14 @@ r.connect({ host: "localhost", port: 28015 }, function (err, conn) {
 
       r.db("bk")
         .table("gamesbd")
-        .insert([planillasOnline])
+        .insert([
+          {
+            equipo1: data.equipo1,
+            equipo2: data.equipo2,
+            idgame: data.idpartido,
+            idroom: data.idroom,
+          },
+        ])
         .run(conn, function (err, cursor) {
           if (err) throw err;
           //console.log(JSON.stringify(null, 2));
