@@ -1,4 +1,15 @@
 #ligames{
     width: 500px;
     margin: 0 auto;
+    text-align: center;
+}
+
+#ligames li{
+    cursor: pointer;
+
+}
+
+.partiditos{
+    color: #effcba;
+    font-size: 25px;
 }
