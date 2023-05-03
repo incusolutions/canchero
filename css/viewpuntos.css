@@ -21,6 +21,7 @@
 
 #newtable th, #newtable td{
   border-bottom: 1px solid #353949 !important;
+  border-top: 1px solid #0e1318 !important;
 }
 
 #newtable{
