@@ -26,3 +26,8 @@
 #newtable{
   color: #f10c52;
 }
+
+.tablecontent{
+  height: 250px;
+  overflow-y: scroll;
+}
