@@ -1,15 +1,22 @@
 #ligames{
-    width: 500px;
+ 
     margin: 0 auto;
     text-align: center;
 }
 
 #ligames li{
     cursor: pointer;
+    list-style: decimal-leading-zero;
+    padding: 0px;
+    margin: 0px;
+    background: #ced2dc;
+    width: 100%;
+    padding: 26px 85px;
+    margin-top: 5px;
 
 }
 
 .partiditos{
     color: #effcba;
-    font-size: 25px;
+    font-size: 48px;
 }
