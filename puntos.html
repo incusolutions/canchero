@@ -377,7 +377,7 @@
     socket.on('statsprint', function(data){
       var template = $.templates("#stats");   
       $('#resgistros').append('<li> <span>Equipo: '+data.equipo +'</span> <span> Jugador: '+data.nombre+'</span> / <span> Puntos totales:'+data.estadisticas.puntos+'</span> / <span> Cesta!'+data.estadisticas.cestas+'</span></li>');
-      $('#newtablein').append('<tr> <td>'+data.equipo+'</td> <td>'+data.nombre+'</td> <td>'+data.estadisticas.puntos+'</td> <td>'+data.estadisticas.cestas+'</td>  </tr>');
+      $('#newtablein').prepend('<tr> <td>'+data.equipo+'</td> <td>'+data.nombre+'</td> <td>'+data.estadisticas.puntos+'</td> <td>'+data.estadisticas.cestas+'</td>  </tr>');
 
     })
     
